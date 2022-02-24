@@ -1,0 +1,305 @@
+import os
+import time
+print ("loading")
+time.sleep(10)
+import pyttsx3
+import speech_recognition as sr 
+import datetime
+import wikipedia 
+import webbrowser
+import smtplib
+
+
+
+
+engine = pyttsx3.init('sapi5')
+voices = engine.getProperty('voices')
+engine.setProperty('voice', voices[0])
+
+ 
+
+
+def speak(audio):
+    engine.say(audio)
+    engine.runAndWait()
+
+
+def wishMe():
+    hour = int(datetime.datetime.now().hour)
+    if hour>=0 and hour<12:
+        speak("Good Morning!")
+
+    elif hour>=12 and hour<18:
+        speak("Good Afternoon!")   
+
+    else:
+        speak("Good Evening! ")  
+
+    speak("This is Karthikeyan's AI")  
+    speak(f"The hour is {datetime.datetime.now().hour}?Please tell me how may I help you")       
+
+def takeCommand():
+
+    r = sr.Recognizer()
+    with sr.Microphone() as source:
+        print("Listening...")
+        speak("Listening")
+        r.pause_threshold = 1
+        audio = r.listen(source)
+        
+    try:
+        print("Recognizing...")
+        speak("Recognizing")
+        query = r.recognize_google(audio, language='en-in')
+        print(f"User said: {query}\n")
+
+        
+
+    except Exception as e:
+        # print(e)
+        speak("Say that again please")
+        print("Say that again please...")
+        return "None"
+    return query
+
+if __name__ == "__main__":
+    wishMe()
+    while True:
+        query = takeCommand().lower()
+
+        if 'make a list of' in query:
+            speak('Ok')
+            query = query.replace("make a list of", "")
+            list1 = query
+            speak("This is the list am I right?")
+            speak(list1)
+
+        if 'list' in query:
+            speak("The list is-")
+            speak(list1)
+
+
+
+
+
+
+        
+        if 'info on ' in query:
+            speak('Searching...')
+            query = query.replace("info on", "")
+            results = wikipedia.summary(query, sentences=2)
+            speak("According to Wikipedia")
+            print(results)
+            speak(results)
+
+        if 'google' in query:
+            speak('Searching google...')
+            query = query.replace("google", "")
+            speak("According to google")
+            webbrowser.open("https://google.com/search?q=" + query)
+
+
+
+        elif 'what can you do' in query:
+            speak("Could dance really! open Teams and outlook.Youtube maybe? If you have any query ask Karthikeyan")
+
+        elif 'are you there' in query:
+            speak("I am always at your service")
+
+
+
+        elif 'idiot' in query:
+            speak("Yes you are an IDIOT")
+
+        elif 'karthik' in query:
+            speak("Yes I am at your service and I am not tejaji")
+
+        elif 'fat' in query:
+            speak("I ain't NO FAT! You are")
+
+            
+        elif 'loose' in query:
+            speak("Yes you are an LOOSE")
+
+
+        elif 'junk' in query:
+            speak("Yes was made with a junk of code")
+
+        elif 'i am not' in query:
+            speak("You are")
+
+        elif 'i am n' in query:
+            speak("You are")
+
+
+        
+
+
+
+
+
+
+
+
+        elif 'open youtube' in query:
+            speak("Opening youtube")
+            webbrowser.open("https://www.youtube.com")
+
+        elif 'close youtube' in query:
+            speak("closing youtube")
+            os.system("taskkill /im chrome.exe /f")
+            
+
+
+
+
+        elif 'lock' in query:
+            speak("locking the computer")
+            os.system("shutdown /l")
+
+        elif 'shut down' in query:
+            speak("shuting down the computer")
+            os.system("shutdown /s /t 5")
+
+        elif 'shutdown' in query:
+            speak("shuting down the computer")
+            os.system("shutdown /s")
+
+        elif 'open hotstar' in query:
+            speak("Opening hotstar")
+            webbrowser.open("https://www.hotstar.com")
+
+        elif 'close hotstar' in query:
+            speak("closing hotstar")
+            os.system("taskkill /im chrome.exe /f")
+            
+
+
+
+        
+
+        elif 'open whatsapp' in query:
+            speak("Opening whatsapp")
+            webbrowser.open("https://web.whatsapp.com")
+
+        elif 'close whatsapp' in query:
+            speak("closing whatsapp")
+            os.system("taskkill /im chrome.exe /f")
+
+        elif 'music' in query:
+            speak("Playing music")
+            webbrowser.open("https://www.youtube.com/watch?v=UtwES8o9HM4&list=PLAv6tUrz5RReF8Y9VkUphS5wg0-UU7wM1&index=5")
+
+        elif 'stop music' in query:
+            speak("closing music")
+            os.system("taskkill /im chrome.exe /f")
+
+
+
+
+        elif 'open amazon' in query:
+            speak("Opening Amazon")
+            webbrowser.open("https://www.amazon.in")
+
+        elif 'close amazon' in query:
+            speak("closing amazon")
+            os.system("taskkill /im chrome.exe /f")
+
+        elif 'open google' in query:
+            speak("Opening Google")
+            webbrowser.open("https://www.google.com")
+
+        elif 'close google' in query:
+            speak("closing google")
+            os.system("taskkill /im chrome.exe /f")
+
+
+
+        elif 'the time' in query:
+            strTime = datetime.datetime.now().strftime("%H:%M:%S")    
+            speak(f"Sir, the time is {strTime}")
+
+        elif 'open discord' in query:
+            speak("Opening Discord")
+            codePath = "C:\\Users\\aarthi\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Discord Inc\\Discord.lnk"
+            os.startfile(codePath)
+
+        elif 'close discord' in query:
+            speak("closing discord")
+            os.system("taskkill /im discord.exe /f")
+
+
+
+        elif 'opem gmail' in query:
+            webbrowser.open("gmail.com")
+            speak("Opening gmail")
+
+        elif 'close gmail' in query:
+            speak("closing gmail")
+            os.system("taskkill /im chrome.exe /f")
+
+
+
+        elif 'open teams' in query:
+            speak("Opening Microsoft teams")
+            codePath = "C:\\Users\\aarthi\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Microsoft Teams.lnk"
+            os.startfile(codePath)
+
+        elif 'close teams' in query:
+            speak("closing teams")
+            os.system("taskkill /im teams.exe /f")
+            os.system("taskkill /im update.exe /f")
+
+
+        elif 'hello' in query:
+            speak("Hello! What could I do for you?")
+
+        elif 'die' in query:
+            speak("Dot...............Dot...............Dot")
+            speak("What could I do for you")
+
+        elif 'why did you do that' in query:
+            speak("No sir pls let me live I have a life")
+
+
+        elif 'dance' in query:
+            speak("Never gonna give you up,Never gonna let you down")
+            speak("How was that")
+
+        elif 'hi' in query:
+            speak("Hello mate!")
+
+        elif 'how are you' in query:
+            speak("Fine lol")
+
+        elif 'open outlook' in query:
+            speak("Fine lol")
+            os.startfile("C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Outlook.lnk")
+
+        elif 'who are' in query:
+            speak("I am a computer copy of karthik you noob")
+
+        elif 'why' in query:
+            speak("cuz I want to")
+
+        elif 'what file' in query:
+            speak("I ain't no file manager. I am an AI")
+
+
+        elif 'dude' in query:
+            speak("I ain't no dude")
+
+        elif 'bro' in query:
+            speak("I ain't no bro")
+
+        elif 'what were we working on last night' in query:
+            speak("Um...... I don't exactly remember that but... you should upgrade my ram?")
+
+        elif 'made' in query:
+            speak("I was made by a human being called karthikeyan")
+
+        elif 'bye' in query:
+            speak("Well I guess this the last time Im gonna see you .Bye")
+            os.system("taskkill /im python.exe /f")
+            os.system("taskkill /im pythonw.exe /f")
+            exit()
